@@ -622,8 +622,6 @@ static void max17048_fg_get_atomic_capacity(
 static int max17048_fg_calculate_dynamic_scale(
 	struct max17048_fuelgauge_data *fuelgauge)
 {
-	/* Short circuit dynamic scale on kccat6/lentislte */
-#if !defined(CONFIG_SEC_KCCAT6_PROJECT) && !defined(CONFIG_SEC_LENTIS_PROJECT)
 	union power_supply_propval raw_soc_val;
 
 	raw_soc_val.intval = max17048_get_soc(fuelgauge->client) / 10;
@@ -656,7 +654,6 @@ static int max17048_fg_calculate_dynamic_scale(
 
 	pr_debug("%s: %d is used for capacity_max\n",
 		__func__, fuelgauge->capacity_max);
-#endif
 
 	return fuelgauge->capacity_max;
 }
